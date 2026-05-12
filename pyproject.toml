@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lyapunov-fractal-lab"
+version = "0.1.0"
+description = "Tiny chaos lab for Lyapunov exponents under symbolic forcing"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "Jarbas"}]
+
+[tool.setuptools.packages.find]
+include = ["lyaplab*"]

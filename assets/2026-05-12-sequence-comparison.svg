@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 260">
+<style>
+.title { font: 700 22px Helvetica, Arial, sans-serif; fill: #e6edf3; }
+.label { font: 600 16px Helvetica, Arial, sans-serif; fill: #e6edf3; }
+.small { font: 500 13px Helvetica, Arial, sans-serif; fill: #a8bbcf; }
+</style>
+<rect width="960" height="260" fill="#0b1220"/>
+<text x="24" y="34" class="title">Sequence choice changes the shape, not just the color.</text>
+<rect x="24" y="60" width="420" height="160" rx="16" fill="#14213d" stroke="#4676a8"/>
+<rect x="516" y="60" width="420" height="160" rx="16" fill="#14213d" stroke="#4676a8"/>
+<text x="48" y="92" class="label">AB</text>
+<text x="540" y="92" class="label">AABAB</text>
+<text x="48" y="122" class="small">Short alternation gives a crisp, highly structured stability frontier.</text>
+<text x="48" y="146" class="small">Good first sequence when you want the classic Lyapunov-fractal feel fast.</text>
+<text x="540" y="122" class="small">Longer symbolic forcing folds the parameter plane into denser islands.</text>
+<text x="540" y="146" class="small">Same map, different forcing grammar, visibly different geometry.</text>
+<text x="48" y="188" class="small">The useful lesson: the word over A/B is part of the experiment.</text>
+<text x="540" y="188" class="small">This is why a tiny sequence-report tool belongs next to the images.</text>
+</svg>
