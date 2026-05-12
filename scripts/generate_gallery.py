@@ -4,6 +4,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from lyaplab.core import exponent_grid
+from lyaplab.report import summarize_sequence_grid
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
@@ -97,10 +98,59 @@ def make_comparison() -> Path:
     return out
 
 
+def make_sequence_report_card() -> Path:
+    out = ASSETS / "2026-05-12-sequence-report.svg"
+    summaries = [
+        summarize_sequence_grid("AB", size=70),
+        summarize_sequence_grid("AABAB", size=70),
+        summarize_sequence_grid("ABBABA", size=70),
+    ]
+    parts = [
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 340">',
+        '<style>',
+        '.title { font: 700 22px Helvetica, Arial, sans-serif; fill: #e6edf3; }',
+        '.label { font: 700 16px Helvetica, Arial, sans-serif; fill: #e6edf3; }',
+        '.small { font: 500 13px Helvetica, Arial, sans-serif; fill: #a8bbcf; }',
+        '.value { font: 600 14px Helvetica, Arial, sans-serif; fill: #f3f4f6; }',
+        '</style>',
+        '<rect width="1080" height="340" fill="#0b1220"/>',
+        '<text x="24" y="34" class="title">Short words over A/B already produce measurably different chaos budgets.</text>',
+        '<text x="24" y="58" class="small">Fractions below come from a coarse Lyapunov grid over a,b in [2.5, 4.0].</text>',
+    ]
+    for idx, summary in enumerate(summaries):
+        x = 24 + idx * 344
+        parts.extend([
+            f'<rect x="{x}" y="84" width="320" height="220" rx="18" fill="#14213d" stroke="#4676a8"/>',
+            f'<text x="{x + 20}" y="114" class="label">{summary.sequence}</text>',
+            f'<text x="{x + 20}" y="138" class="small">stable {summary.stable_fraction * 100:.1f}%</text>',
+            f'<text x="{x + 20}" y="160" class="small">boundary {summary.boundary_fraction * 100:.1f}%</text>',
+            f'<text x="{x + 20}" y="182" class="small">chaotic {summary.chaotic_fraction * 100:.1f}%</text>',
+            f'<text x="{x + 20}" y="212" class="small">mean λ {summary.mean_exponent:.4f}</text>',
+            f'<text x="{x + 20}" y="234" class="small">min λ {summary.min_exponent:.4f}</text>',
+            f'<text x="{x + 20}" y="256" class="small">max λ {summary.max_exponent:.4f}</text>',
+        ])
+        bar_x = x + 20
+        bar_y = 274
+        total_w = 280
+        stable_w = total_w * summary.stable_fraction
+        boundary_w = total_w * summary.boundary_fraction
+        chaotic_w = total_w * summary.chaotic_fraction
+        parts.extend([
+            f'<rect x="{bar_x}" y="{bar_y}" width="{stable_w:.2f}" height="12" fill="#3f88c5"/>',
+            f'<rect x="{bar_x + stable_w:.2f}" y="{bar_y}" width="{boundary_w:.2f}" height="12" fill="#f2c14e"/>',
+            f'<rect x="{bar_x + stable_w + boundary_w:.2f}" y="{bar_y}" width="{chaotic_w:.2f}" height="12" fill="#d7263d"/>',
+            f'<text x="{bar_x}" y="304" class="small">stable / boundary / chaotic mix</text>',
+        ])
+    parts.append('</svg>')
+    out.write_text("\n".join(parts) + "\n")
+    return out
+
+
 def main() -> int:
     ASSETS.mkdir(parents=True, exist_ok=True)
     outputs = [make_svg(sequence, label) for sequence, label in SEQUENCES]
     outputs.append(make_comparison())
+    outputs.append(make_sequence_report_card())
     for path in outputs:
         print(f"WROTE {path.relative_to(ROOT)}")
     return 0

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 340">
+<style>
+.title { font: 700 22px Helvetica, Arial, sans-serif; fill: #e6edf3; }
+.label { font: 700 16px Helvetica, Arial, sans-serif; fill: #e6edf3; }
+.small { font: 500 13px Helvetica, Arial, sans-serif; fill: #a8bbcf; }
+.value { font: 600 14px Helvetica, Arial, sans-serif; fill: #f3f4f6; }
+</style>
+<rect width="1080" height="340" fill="#0b1220"/>
+<text x="24" y="34" class="title">Short words over A/B already produce measurably different chaos budgets.</text>
+<text x="24" y="58" class="small">Fractions below come from a coarse Lyapunov grid over a,b in [2.5, 4.0].</text>
+<rect x="24" y="84" width="320" height="220" rx="18" fill="#14213d" stroke="#4676a8"/>
+<text x="44" y="114" class="label">AB</text>
+<text x="44" y="138" class="small">stable 66.9%</text>
+<text x="44" y="160" class="small">boundary 0.1%</text>
+<text x="44" y="182" class="small">chaotic 33.0%</text>
+<text x="44" y="212" class="small">mean λ -0.1940</text>
+<text x="44" y="234" class="small">min λ -3.0774</text>
+<text x="44" y="256" class="small">max λ 0.6928</text>
+<rect x="44" y="274" width="187.43" height="12" fill="#3f88c5"/>
+<rect x="231.43" y="274" width="0.17" height="12" fill="#f2c14e"/>
+<rect x="231.60" y="274" width="92.40" height="12" fill="#d7263d"/>
+<text x="44" y="304" class="small">stable / boundary / chaotic mix</text>
+<rect x="368" y="84" width="320" height="220" rx="18" fill="#14213d" stroke="#4676a8"/>
+<text x="388" y="114" class="label">AABAB</text>
+<text x="388" y="138" class="small">stable 64.1%</text>
+<text x="388" y="160" class="small">boundary 0.2%</text>
+<text x="388" y="182" class="small">chaotic 35.7%</text>
+<text x="388" y="212" class="small">mean λ -0.0891</text>
+<text x="388" y="234" class="small">min λ -2.4908</text>
+<text x="388" y="256" class="small">max λ 0.6928</text>
+<rect x="388" y="274" width="179.60" height="12" fill="#3f88c5"/>
+<rect x="567.60" y="274" width="0.51" height="12" fill="#f2c14e"/>
+<rect x="568.11" y="274" width="99.89" height="12" fill="#d7263d"/>
+<text x="388" y="304" class="small">stable / boundary / chaotic mix</text>
+<rect x="712" y="84" width="320" height="220" rx="18" fill="#14213d" stroke="#4676a8"/>
+<text x="732" y="114" class="label">ABBABA</text>
+<text x="732" y="138" class="small">stable 63.4%</text>
+<text x="732" y="160" class="small">boundary 0.1%</text>
+<text x="732" y="182" class="small">chaotic 36.4%</text>
+<text x="732" y="212" class="small">mean λ -0.1030</text>
+<text x="732" y="234" class="small">min λ -2.1450</text>
+<text x="732" y="256" class="small">max λ 0.6928</text>
+<rect x="732" y="274" width="177.54" height="12" fill="#3f88c5"/>
+<rect x="909.54" y="274" width="0.40" height="12" fill="#f2c14e"/>
+<rect x="909.94" y="274" width="102.06" height="12" fill="#d7263d"/>
+<text x="732" y="304" class="small">stable / boundary / chaotic mix</text>
+</svg>
