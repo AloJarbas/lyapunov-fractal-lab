@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" width="1200" height="860">
+<rect width="100%" height="100%" fill="#0b1220"/>
+<text x="40" y="48" fill="#e6edf3" font-size="28" font-family="Helvetica, Arial, sans-serif" font-weight="700">Short forcing words can be ranked, not just admired.</text>
+<text x="40" y="76" fill="#a8bbcf" font-size="15" font-family="Helvetica, Arial, sans-serif">Canonical primitive words up to length 5. Bars show stable / boundary / chaotic fractions on the same coarse parameter grid.</text>
+<rect x="40" y="120" width="350" height="680" rx="20" fill="#14213d" stroke="#335c81"/>
+<text x="60" y="154" fill="#e6edf3" font-size="20" font-family="Helvetica, Arial, sans-serif" font-weight="700">Frontier-rich words</text>
+<text x="60" y="178" fill="#a8bbcf" font-size="13" font-family="Helvetica, Arial, sans-serif">High boundary fraction, without collapsing into one side of the map.</text>
+<text x="60" y="215" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AABAB</text>
+<text x="132" y="215" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 5</text>
+<text x="60" y="237" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 63.1% · near-zero band 8.5% · chaotic 36.8%</text>
+<rect x="60" y="249" width="182.99" height="14" fill="#3f88c5" rx="4"/>
+<rect x="242.99" y="249" width="0.30" height="14" fill="#f2c14e"/>
+<rect x="243.29" y="249" width="106.71" height="14" fill="#d7263d" rx="4"/>
+<text x="60" y="281" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.062 · mean λ -0.087</text>
+<text x="60" y="309" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAAAB</text>
+<text x="132" y="309" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 5</text>
+<text x="60" y="331" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.2% · near-zero band 9.4% · chaotic 31.6%</text>
+<rect x="60" y="343" width="197.71" height="14" fill="#3f88c5" rx="4"/>
+<rect x="257.71" y="343" width="0.70" height="14" fill="#f2c14e"/>
+<rect x="258.41" y="343" width="91.59" height="14" fill="#d7263d" rx="4"/>
+<text x="60" y="375" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.059 · mean λ -0.091</text>
+<text x="60" y="403" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAABB</text>
+<text x="132" y="403" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 5</text>
+<text x="60" y="425" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.3% · near-zero band 8.9% · chaotic 31.5%</text>
+<rect x="60" y="437" width="198.21" height="14" fill="#3f88c5" rx="4"/>
+<rect x="258.21" y="437" width="0.50" height="14" fill="#f2c14e"/>
+<rect x="258.70" y="437" width="91.30" height="14" fill="#d7263d" rx="4"/>
+<text x="60" y="469" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.056 · mean λ -0.092</text>
+<text x="60" y="497" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAB</text>
+<text x="132" y="497" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 3</text>
+<text x="60" y="519" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 66.6% · near-zero band 8.0% · chaotic 33.1%</text>
+<rect x="60" y="531" width="193.23" height="14" fill="#3f88c5" rx="4"/>
+<rect x="253.23" y="531" width="0.80" height="14" fill="#f2c14e"/>
+<rect x="254.03" y="531" width="95.97" height="14" fill="#d7263d" rx="4"/>
+<text x="60" y="563" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.053 · mean λ -0.098</text>
+<text x="60" y="591" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AB</text>
+<text x="132" y="591" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 2</text>
+<text x="60" y="613" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 66.3% · near-zero band 6.8% · chaotic 33.6%</text>
+<rect x="60" y="625" width="192.24" height="14" fill="#3f88c5" rx="4"/>
+<rect x="252.24" y="625" width="0.40" height="14" fill="#f2c14e"/>
+<rect x="252.64" y="625" width="97.36" height="14" fill="#d7263d" rx="4"/>
+<text x="60" y="657" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.046 · mean λ -0.192</text>
+<text x="60" y="685" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAAB</text>
+<text x="132" y="685" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 4</text>
+<text x="60" y="707" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.0% · near-zero band 6.2% · chaotic 31.9%</text>
+<rect x="60" y="719" width="197.31" height="14" fill="#3f88c5" rx="4"/>
+<rect x="257.31" y="719" width="0.20" height="14" fill="#f2c14e"/>
+<rect x="257.51" y="719" width="92.49" height="14" fill="#d7263d" rx="4"/>
+<text x="60" y="751" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.040 · mean λ -0.151</text>
+<rect x="425" y="120" width="350" height="680" rx="20" fill="#14213d" stroke="#335c81"/>
+<text x="445" y="154" fill="#e6edf3" font-size="20" font-family="Helvetica, Arial, sans-serif" font-weight="700">Chaos-heavy words</text>
+<text x="445" y="178" fill="#a8bbcf" font-size="13" font-family="Helvetica, Arial, sans-serif">Words whose coarse plane spends the most area in positive Lyapunov territory.</text>
+<text x="445" y="215" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AABAB</text>
+<text x="517" y="215" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 5</text>
+<text x="445" y="237" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 63.1% · near-zero band 8.5% · chaotic 36.8%</text>
+<rect x="445" y="249" width="182.99" height="14" fill="#3f88c5" rx="4"/>
+<rect x="627.99" y="249" width="0.30" height="14" fill="#f2c14e"/>
+<rect x="628.29" y="249" width="106.71" height="14" fill="#d7263d" rx="4"/>
+<text x="445" y="281" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.062 · mean λ -0.087</text>
+<text x="445" y="309" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AB</text>
+<text x="517" y="309" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 2</text>
+<text x="445" y="331" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 66.3% · near-zero band 6.8% · chaotic 33.6%</text>
+<rect x="445" y="343" width="192.24" height="14" fill="#3f88c5" rx="4"/>
+<rect x="637.24" y="343" width="0.40" height="14" fill="#f2c14e"/>
+<rect x="637.64" y="343" width="97.36" height="14" fill="#d7263d" rx="4"/>
+<text x="445" y="375" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.046 · mean λ -0.192</text>
+<text x="445" y="403" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAB</text>
+<text x="517" y="403" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 3</text>
+<text x="445" y="425" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 66.6% · near-zero band 8.0% · chaotic 33.1%</text>
+<rect x="445" y="437" width="193.23" height="14" fill="#3f88c5" rx="4"/>
+<rect x="638.23" y="437" width="0.80" height="14" fill="#f2c14e"/>
+<rect x="639.03" y="437" width="95.97" height="14" fill="#d7263d" rx="4"/>
+<text x="445" y="469" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.053 · mean λ -0.098</text>
+<text x="445" y="497" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAAB</text>
+<text x="517" y="497" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 4</text>
+<text x="445" y="519" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.0% · near-zero band 6.2% · chaotic 31.9%</text>
+<rect x="445" y="531" width="197.31" height="14" fill="#3f88c5" rx="4"/>
+<rect x="642.31" y="531" width="0.20" height="14" fill="#f2c14e"/>
+<rect x="642.51" y="531" width="92.49" height="14" fill="#d7263d" rx="4"/>
+<text x="445" y="563" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.040 · mean λ -0.151</text>
+<text x="445" y="591" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAAAB</text>
+<text x="517" y="591" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 5</text>
+<text x="445" y="613" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.2% · near-zero band 9.4% · chaotic 31.6%</text>
+<rect x="445" y="625" width="197.71" height="14" fill="#3f88c5" rx="4"/>
+<rect x="642.71" y="625" width="0.70" height="14" fill="#f2c14e"/>
+<rect x="643.41" y="625" width="91.59" height="14" fill="#d7263d" rx="4"/>
+<text x="445" y="657" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.059 · mean λ -0.091</text>
+<text x="445" y="685" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAABB</text>
+<text x="517" y="685" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 5</text>
+<text x="445" y="707" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.3% · near-zero band 8.9% · chaotic 31.5%</text>
+<rect x="445" y="719" width="198.21" height="14" fill="#3f88c5" rx="4"/>
+<rect x="643.21" y="719" width="0.50" height="14" fill="#f2c14e"/>
+<rect x="643.70" y="719" width="91.30" height="14" fill="#d7263d" rx="4"/>
+<text x="445" y="751" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.056 · mean λ -0.092</text>
+<rect x="810" y="120" width="350" height="680" rx="20" fill="#14213d" stroke="#335c81"/>
+<text x="830" y="154" fill="#e6edf3" font-size="20" font-family="Helvetica, Arial, sans-serif" font-weight="700">Stable-heavy words</text>
+<text x="830" y="178" fill="#a8bbcf" font-size="13" font-family="Helvetica, Arial, sans-serif">Words that leave the largest share of the plane in contracting behavior.</text>
+<text x="830" y="215" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AABB</text>
+<text x="902" y="215" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 4</text>
+<text x="830" y="237" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 72.8% · near-zero band 6.4% · chaotic 27.2%</text>
+<rect x="830" y="249" width="211.04" height="14" fill="#3f88c5" rx="4"/>
+<rect x="1041.04" y="249" width="0.10" height="14" fill="#f2c14e"/>
+<rect x="1041.14" y="249" width="78.86" height="14" fill="#d7263d" rx="4"/>
+<text x="830" y="281" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.035 · mean λ -0.135</text>
+<text x="830" y="309" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAABB</text>
+<text x="902" y="309" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 5</text>
+<text x="830" y="331" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.3% · near-zero band 8.9% · chaotic 31.5%</text>
+<rect x="830" y="343" width="198.21" height="14" fill="#3f88c5" rx="4"/>
+<rect x="1028.21" y="343" width="0.50" height="14" fill="#f2c14e"/>
+<rect x="1028.70" y="343" width="91.30" height="14" fill="#d7263d" rx="4"/>
+<text x="830" y="375" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.056 · mean λ -0.092</text>
+<text x="830" y="403" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAAAB</text>
+<text x="902" y="403" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 5</text>
+<text x="830" y="425" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.2% · near-zero band 9.4% · chaotic 31.6%</text>
+<rect x="830" y="437" width="197.71" height="14" fill="#3f88c5" rx="4"/>
+<rect x="1027.71" y="437" width="0.70" height="14" fill="#f2c14e"/>
+<rect x="1028.41" y="437" width="91.59" height="14" fill="#d7263d" rx="4"/>
+<text x="830" y="469" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.059 · mean λ -0.091</text>
+<text x="830" y="497" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAAB</text>
+<text x="902" y="497" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 4</text>
+<text x="830" y="519" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 68.0% · near-zero band 6.2% · chaotic 31.9%</text>
+<rect x="830" y="531" width="197.31" height="14" fill="#3f88c5" rx="4"/>
+<rect x="1027.31" y="531" width="0.20" height="14" fill="#f2c14e"/>
+<rect x="1027.51" y="531" width="92.49" height="14" fill="#d7263d" rx="4"/>
+<text x="830" y="563" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.040 · mean λ -0.151</text>
+<text x="830" y="591" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AAB</text>
+<text x="902" y="591" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 3</text>
+<text x="830" y="613" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 66.6% · near-zero band 8.0% · chaotic 33.1%</text>
+<rect x="830" y="625" width="193.23" height="14" fill="#3f88c5" rx="4"/>
+<rect x="1023.23" y="625" width="0.80" height="14" fill="#f2c14e"/>
+<rect x="1024.03" y="625" width="95.97" height="14" fill="#d7263d" rx="4"/>
+<text x="830" y="657" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.053 · mean λ -0.098</text>
+<text x="830" y="685" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">AB</text>
+<text x="902" y="685" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len 2</text>
+<text x="830" y="707" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable 66.3% · near-zero band 6.8% · chaotic 33.6%</text>
+<rect x="830" y="719" width="192.24" height="14" fill="#3f88c5" rx="4"/>
+<rect x="1022.24" y="719" width="0.40" height="14" fill="#f2c14e"/>
+<rect x="1022.64" y="719" width="97.36" height="14" fill="#d7263d" rx="4"/>
+<text x="830" y="751" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score 0.046 · mean λ -0.192</text>
+</svg>

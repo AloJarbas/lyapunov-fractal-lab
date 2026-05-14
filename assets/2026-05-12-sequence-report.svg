@@ -3,7 +3,6 @@
 .title { font: 700 22px Helvetica, Arial, sans-serif; fill: #e6edf3; }
 .label { font: 700 16px Helvetica, Arial, sans-serif; fill: #e6edf3; }
 .small { font: 500 13px Helvetica, Arial, sans-serif; fill: #a8bbcf; }
-.value { font: 600 14px Helvetica, Arial, sans-serif; fill: #f3f4f6; }
 </style>
 <rect width="1080" height="340" fill="#0b1220"/>
 <text x="24" y="34" class="title">Short words over A/B already produce measurably different chaos budgets.</text>

@@ -2,12 +2,17 @@
 from __future__ import annotations
 
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 from lyaplab.core import exponent_grid
 from lyaplab.report import summarize_sequence_grid
+from lyaplab.wordscan import ranked_rows, render_short_word_scan_svg, scan_short_words
 
-ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
+REPORTS = ROOT / "reports"
 SEQUENCES = [
     ("AB", "ab-plane"),
     ("AABAB", "aabab-plane"),
@@ -111,7 +116,6 @@ def make_sequence_report_card() -> Path:
         '.title { font: 700 22px Helvetica, Arial, sans-serif; fill: #e6edf3; }',
         '.label { font: 700 16px Helvetica, Arial, sans-serif; fill: #e6edf3; }',
         '.small { font: 500 13px Helvetica, Arial, sans-serif; fill: #a8bbcf; }',
-        '.value { font: 600 14px Helvetica, Arial, sans-serif; fill: #f3f4f6; }',
         '</style>',
         '<rect width="1080" height="340" fill="#0b1220"/>',
         '<text x="24" y="34" class="title">Short words over A/B already produce measurably different chaos budgets.</text>',
@@ -146,11 +150,75 @@ def make_sequence_report_card() -> Path:
     return out
 
 
+def make_short_word_report() -> Path:
+    rows = scan_short_words(max_length=5, size=54, burn_in=180, steps=520)
+    frontier = ranked_rows(rows, key="frontier_score", limit=8)
+    chaotic = ranked_rows(rows, key="chaotic_fraction", limit=5)
+    stable = ranked_rows(rows, key="stable_fraction", limit=5)
+
+    out = REPORTS / "short-word-scan.md"
+    lines = [
+        "# Short-word Lyapunov scan",
+        "",
+        "This pass scans canonical primitive A/B words up to length 5 on the same coarse parameter square.",
+        "The point is simple: the forcing word can be ranked as an object, not just shown in one pretty plane.",
+        "",
+        "## What changed",
+        "",
+        "- scanned the short-word family instead of hand-picking one or two examples",
+        "- collapsed cyclic rotations, label swaps, and repeated shorter roots so the table stays honest",
+        "- ranked words by a frontier score built from a wider near-zero Lyapunov band, so the search reflects visible frontier richness instead of a vanishing exact-zero set",
+        "",
+        "## Frontier-rich words",
+        "",
+    ]
+    for row in frontier:
+        lines.append(
+            f"- `{row.sequence}` (len {row.length}) -> stable {row.stable_fraction * 100:.1f}%, near-zero band {row.frontier_band_fraction * 100:.1f}%, chaotic {row.chaotic_fraction * 100:.1f}%, frontier score {row.frontier_score:.3f}"
+        )
+    lines.extend([
+        "",
+        "## Chaos-heavy words",
+        "",
+    ])
+    for row in chaotic:
+        lines.append(
+            f"- `{row.sequence}` -> chaotic {row.chaotic_fraction * 100:.1f}% with mean λ {row.mean_exponent:+.3f}"
+        )
+    lines.extend([
+        "",
+        "## Stable-heavy words",
+        "",
+    ])
+    for row in stable:
+        lines.append(
+            f"- `{row.sequence}` -> stable {row.stable_fraction * 100:.1f}% with mean λ {row.mean_exponent:+.3f}"
+        )
+    lines.extend([
+        "",
+        "## Reading note",
+        "",
+        "A high frontier score does not mean a word is best in any universal sense.",
+        "It means the coarse plane spends a lot of area in a small near-zero Lyapunov band without collapsing into a mostly-stable or mostly-chaotic blur.",
+        "That makes those words good candidates for later higher-resolution renders.",
+        "",
+        "## Artifact",
+        "",
+        "- `assets/2026-05-14-short-word-scan.svg` turns the ranking into a compact comparison card",
+    ])
+    out.write_text("\n".join(lines) + "\n")
+    return out
+
+
 def main() -> int:
     ASSETS.mkdir(parents=True, exist_ok=True)
+    REPORTS.mkdir(parents=True, exist_ok=True)
     outputs = [make_svg(sequence, label) for sequence, label in SEQUENCES]
     outputs.append(make_comparison())
     outputs.append(make_sequence_report_card())
+    outputs.append(ASSETS / "2026-05-14-short-word-scan.svg")
+    render_short_word_scan_svg(scan_short_words(max_length=5, size=54, burn_in=180, steps=520), output=outputs[-1])
+    outputs.append(make_short_word_report())
     for path in outputs:
         print(f"WROTE {path.relative_to(ROOT)}")
     return 0
