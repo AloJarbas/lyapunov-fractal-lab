@@ -149,9 +149,10 @@ def render_short_word_scan_svg(rows: list[WordScanRow], *, output: str | Path) -
             top = y + 95 + idx * 94
             parts.append(f'<text x="{x + 20}" y="{top}" fill="#f8fafc" font-size="18" font-family="Helvetica, Arial, sans-serif" font-weight="700">{row.sequence}</text>')
             parts.append(f'<text x="{x + 92}" y="{top}" fill="#a8bbcf" font-size="12" font-family="Helvetica, Arial, sans-serif">len {row.length}</text>')
-            parts.append(f'<text x="{x + 20}" y="{top + 22}" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable {row.stable_fraction * 100:.1f}% · near-zero band {row.frontier_band_fraction * 100:.1f}% · chaotic {row.chaotic_fraction * 100:.1f}%</text>')
+            parts.append(f'<text x="{x + 20}" y="{top + 22}" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">stable {row.stable_fraction * 100:.1f}% · near-zero {row.frontier_band_fraction * 100:.1f}%</text>')
+            parts.append(f'<text x="{x + 20}" y="{top + 38}" fill="#cbd5e1" font-size="12" font-family="Helvetica, Arial, sans-serif">chaotic {row.chaotic_fraction * 100:.1f}%</text>')
             base_x = x + 20
-            bar_y = top + 34
+            bar_y = top + 46
             total_w = 290
             stable_w = total_w * row.stable_fraction
             boundary_w = total_w * row.boundary_fraction
@@ -159,7 +160,7 @@ def render_short_word_scan_svg(rows: list[WordScanRow], *, output: str | Path) -
             parts.append(f'<rect x="{base_x}" y="{bar_y}" width="{stable_w:.2f}" height="14" fill="#3f88c5" rx="4"/>')
             parts.append(f'<rect x="{base_x + stable_w:.2f}" y="{bar_y}" width="{boundary_w:.2f}" height="14" fill="#f2c14e"/>')
             parts.append(f'<rect x="{base_x + stable_w + boundary_w:.2f}" y="{bar_y}" width="{chaotic_w:.2f}" height="14" fill="#d7263d" rx="4"/>')
-            parts.append(f'<text x="{x + 20}" y="{top + 66}" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score {row.frontier_score:.3f} · mean λ {row.mean_exponent:+.3f}</text>')
+            parts.append(f'<text x="{x + 20}" y="{top + 78}" fill="#94a3b8" font-size="12" font-family="Helvetica, Arial, sans-serif">frontier score {row.frontier_score:.3f} · mean λ {row.mean_exponent:+.3f}</text>')
 
     add_panel(
         "Frontier-rich words",

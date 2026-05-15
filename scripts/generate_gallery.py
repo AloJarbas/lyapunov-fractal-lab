@@ -41,8 +41,13 @@ def make_svg(sequence: str, label: str) -> Path:
     b_values = [B_MIN + (B_MAX - B_MIN) * i / (SIZE - 1) for i in range(SIZE)]
     grid = exponent_grid(sequence, a_values, b_values)
     cell = 3
-    width = 180 + SIZE * cell
-    height = 180 + SIZE * cell
+    width = 860
+    height = 760
+    plot_left = 86
+    plot_top = 104
+    plot_size = SIZE * cell
+    side_x = plot_left + plot_size + 28
+    side_w = width - side_x - 30
     out = ASSETS / f"2026-05-12-{label}.svg"
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}">',
@@ -53,23 +58,32 @@ def make_svg(sequence: str, label: str) -> Path:
         '</style>',
         f'<rect width="{width}" height="{height}" fill="#0b1220"/>',
         f'<text x="22" y="30" class="title">Lyapunov plane for sequence {sequence}</text>',
-        '<text x="22" y="50" class="small">Blue = stable, gold = boundary, red = chaotic.</text>',
-        f'<rect x="70" y="70" width="{SIZE * cell}" height="{SIZE * cell}" fill="#111827" stroke="#8aa4be" stroke-width="1.5"/>',
+        '<text x="22" y="52" class="small">Blue = stable, gold = boundary, red = chaotic.</text>',
+        f'<rect x="{plot_left}" y="{plot_top}" width="{plot_size}" height="{plot_size}" fill="#111827" stroke="#8aa4be" stroke-width="1.5"/>',
+        f'<rect x="{side_x}" y="{plot_top}" width="{side_w}" height="{plot_size}" rx="18" fill="#101827" stroke="#355070" stroke-width="1.4"/>',
+        f'<text x="{side_x + 18}" y="{plot_top + 30}" class="title" style="font-size:18px">How to read this plane</text>',
+        f'<text x="{side_x + 18}" y="{plot_top + 58}" class="small">Each pixel uses one repeating word over A/B.</text>',
+        f'<text x="{side_x + 18}" y="{plot_top + 80}" class="small">Moving across the square changes the pair (a, b).</text>',
+        f'<rect x="{side_x + 18}" y="{plot_top + 118}" width="18" height="18" rx="4" fill="#144b8b"/><text x="{side_x + 46}" y="{plot_top + 132}" class="small">stable: λ clearly negative</text>',
+        f'<rect x="{side_x + 18}" y="{plot_top + 152}" width="18" height="18" rx="4" fill="#f2c14e"/><text x="{side_x + 46}" y="{plot_top + 166}" class="small">boundary band: λ near zero</text>',
+        f'<rect x="{side_x + 18}" y="{plot_top + 186}" width="18" height="18" rx="4" fill="#d7263d"/><text x="{side_x + 46}" y="{plot_top + 200}" class="small">chaotic: λ clearly positive</text>',
+        f'<text x="{side_x + 18}" y="{plot_top + 244}" class="small">The side legend keeps the plot square and prevents</text>',
+        f'<text x="{side_x + 18}" y="{plot_top + 266}" class="small">caption text from crowding the parameter frame.</text>',
     ]
     for i, row in enumerate(grid):
-        y = 70 + (SIZE - 1 - i) * cell
+        y = plot_top + (SIZE - 1 - i) * cell
         for j, value in enumerate(row):
-            x = 70 + j * cell
+            x = plot_left + j * cell
             parts.append(f'<rect x="{x}" y="{y}" width="{cell}" height="{cell}" fill="{color_for(value)}"/>')
     parts.extend([
-        f'<line x1="70" y1="{70 + SIZE * cell}" x2="{70 + SIZE * cell}" y2="{70 + SIZE * cell}" class="axis"/>',
-        f'<line x1="70" y1="70" x2="70" y2="{70 + SIZE * cell}" class="axis"/>',
-        f'<text x="{70 + SIZE * cell / 2 - 22}" y="{height - 24}" class="small">b parameter</text>',
-        f'<text x="12" y="{70 + SIZE * cell / 2}" class="small" transform="rotate(-90 12 {70 + SIZE * cell / 2})">a parameter</text>',
-        f'<text x="70" y="{height - 42}" class="small">{B_MIN:.1f}</text>',
-        f'<text x="{70 + SIZE * cell - 18}" y="{height - 42}" class="small">{B_MAX:.1f}</text>',
-        f'<text x="44" y="{70 + SIZE * cell + 4}" class="small">{A_MIN:.1f}</text>',
-        f'<text x="44" y="78" class="small">{A_MAX:.1f}</text>',
+        f'<line x1="{plot_left}" y1="{plot_top + plot_size}" x2="{plot_left + plot_size}" y2="{plot_top + plot_size}" class="axis"/>',
+        f'<line x1="{plot_left}" y1="{plot_top}" x2="{plot_left}" y2="{plot_top + plot_size}" class="axis"/>',
+        f'<text x="{plot_left + plot_size / 2}" y="{plot_top + plot_size + 46}" class="small" text-anchor="middle">b parameter</text>',
+        f'<text x="26" y="{plot_top + plot_size / 2}" class="small" text-anchor="middle" transform="rotate(-90 26 {plot_top + plot_size / 2})">a parameter</text>',
+        f'<text x="{plot_left}" y="{plot_top + plot_size + 24}" class="small">{B_MIN:.1f}</text>',
+        f'<text x="{plot_left + plot_size}" y="{plot_top + plot_size + 24}" class="small" text-anchor="end">{B_MAX:.1f}</text>',
+        f'<text x="{plot_left - 18}" y="{plot_top + plot_size + 4}" class="small" text-anchor="end">{A_MIN:.1f}</text>',
+        f'<text x="{plot_left - 18}" y="{plot_top + 8}" class="small" text-anchor="end">{A_MAX:.1f}</text>',
         '</svg>',
     ])
     out.write_text("\n".join(parts) + "\n")
