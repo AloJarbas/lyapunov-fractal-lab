@@ -2,12 +2,16 @@
 from __future__ import annotations
 
 from pathlib import Path
+import shutil
+import subprocess
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from lyaplab.core import exponent_grid
+from lyaplab.orbit import OrbitDensitySummary, summarize_orbit_density
 from lyaplab.report import summarize_sequence_grid
 from lyaplab.wordscan import ranked_rows, render_short_word_scan_svg, scan_short_words
 
@@ -22,6 +26,45 @@ A_MAX = 4.0
 B_MIN = 2.5
 B_MAX = 4.0
 SIZE = 180
+ORBIT_CASES = [
+    ("AB", "stable", 2.9, 3.1, "period-2 support"),
+    ("AB", "near-zero", 2.9, 3.567, "thin-band frontier"),
+    ("AB", "chaotic", 3.9, 3.95, "broad support"),
+    ("AABAB", "stable", 3.35, 3.35, "period-2 support"),
+    ("AABAB", "near-zero", 2.9, 3.715, "multi-band frontier"),
+    ("AABAB", "chaotic", 3.808, 3.808, "broad support"),
+]
+
+
+def export_png_from_svg(svg_path: Path, png_path: Path, *, size: int = 1800, dpi: int = 300) -> bool:
+    qlmanage = shutil.which("qlmanage")
+    if qlmanage is None:
+        return False
+
+    svg_file = svg_path.resolve()
+    png_file = png_path.resolve()
+    with tempfile.TemporaryDirectory() as tmpdir:
+        subprocess.run(
+            [qlmanage, "-t", "-s", str(size), "-o", tmpdir, str(svg_file)],
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        generated = Path(tmpdir) / f"{svg_file.name}.png"
+        if not generated.exists():
+            raise FileNotFoundError(f"Quick Look did not generate {generated}")
+        png_file.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(generated, png_file)
+
+    sips = shutil.which("sips")
+    if sips is not None:
+        subprocess.run(
+            [sips, "--setProperty", "dpiWidth", str(dpi), "--setProperty", "dpiHeight", str(dpi), str(png_file)],
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    return True
 
 
 def color_for(value: float) -> str:
@@ -224,6 +267,156 @@ def make_short_word_report() -> Path:
     return out
 
 
+def orbit_color(label: str) -> str:
+    if label == "stable":
+        return "#3f88c5"
+    if label == "near-zero":
+        return "#f2c14e"
+    return "#d7263d"
+
+
+def make_orbit_density_sidecar() -> Path:
+    width = 1220
+    height = 1360
+    out = ASSETS / "2026-05-16-orbit-density-sidecar.svg"
+    summaries: list[tuple[str, str, str, OrbitDensitySummary]] = [
+        (sequence, regime, note, summarize_orbit_density(sequence, a, b, burn_in=360, steps=1400, bins=24))
+        for sequence, regime, a, b, note in ORBIT_CASES
+    ]
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}">',
+        '<style>',
+        'svg { background: #0b1220; }',
+        '.title { font: 700 28px Helvetica, Arial, sans-serif; fill: #e6edf3; }',
+        '.label { font: 700 18px Helvetica, Arial, sans-serif; fill: #e6edf3; }',
+        '.small { font: 500 14px Helvetica, Arial, sans-serif; fill: #a8bbcf; }',
+        '.metric { font: 500 13px Helvetica, Arial, sans-serif; fill: #cbd5e1; }',
+        '.axis { stroke: #718096; stroke-width: 1.3; }',
+        '.panel { fill: #14213d; stroke: #355070; stroke-width: 1.4; rx: 18; }',
+        '</style>',
+        '<text x="40" y="46" class="title">Lyapunov sign points to a regime. Orbit density tells you how that regime is occupied.</text>',
+        '<text x="40" y="74" class="small">Same logistic forcing idea, but now with tail histograms and last-iterate traces. Near-zero cases spread into many bands before they look fully chaotic.</text>',
+    ]
+
+    cols = [40, 430, 820]
+    rows = [120, 700]
+    panel_w = 360
+    panel_h = 600
+    hist_left_pad = 24
+    hist_w = 300
+    hist_h = 150
+    trace_h = 120
+    trace_points = 90
+    max_hist = max(max(summary.histogram) for _, _, _, summary in summaries)
+
+    for index, (sequence, regime, note, summary) in enumerate(summaries):
+        left = cols[index % 3]
+        top = rows[index // 3]
+        color = orbit_color(regime)
+        parts.append(f'<rect x="{left}" y="{top}" width="{panel_w}" height="{panel_h}" class="panel"/>')
+        parts.append(f'<text x="{left + 22}" y="{top + 32}" class="label">{sequence} · {regime}</text>')
+        parts.append(f'<text x="{left + 22}" y="{top + 54}" class="small">a={summary.a:.3f}, b={summary.b:.3f}, λ={summary.exponent:+.4f}, {note}</text>')
+
+        hist_left = left + hist_left_pad
+        hist_top = top + 96
+        parts.append(f'<text x="{hist_left}" y="{hist_top - 14}" class="small">tail histogram</text>')
+        parts.append(f'<line x1="{hist_left}" y1="{hist_top + hist_h}" x2="{hist_left + hist_w}" y2="{hist_top + hist_h}" class="axis"/>')
+        parts.append(f'<line x1="{hist_left}" y1="{hist_top}" x2="{hist_left}" y2="{hist_top + hist_h}" class="axis"/>')
+        bar_w = hist_w / len(summary.histogram)
+        for bucket, value in enumerate(summary.histogram):
+            x = hist_left + bucket * bar_w
+            bar_h = 0 if max_hist == 0 else hist_h * value / max_hist
+            y = hist_top + hist_h - bar_h
+            parts.append(f'<rect x="{x + 1.0:.2f}" y="{y:.2f}" width="{bar_w - 2.0:.2f}" height="{bar_h:.2f}" fill="{color}" rx="2"/>')
+        parts.append(f'<text x="{hist_left}" y="{hist_top + hist_h + 20}" class="small">0</text>')
+        parts.append(f'<text x="{hist_left + hist_w}" y="{hist_top + hist_h + 20}" class="small" text-anchor="end">1</text>')
+
+        trace_top = top + 304
+        trace_left = hist_left
+        trace_w = hist_w
+        parts.append(f'<text x="{trace_left}" y="{trace_top - 14}" class="small">last {trace_points} iterates</text>')
+        parts.append(f'<line x1="{trace_left}" y1="{trace_top + trace_h}" x2="{trace_left + trace_w}" y2="{trace_top + trace_h}" class="axis"/>')
+        parts.append(f'<line x1="{trace_left}" y1="{trace_top}" x2="{trace_left}" y2="{trace_top + trace_h}" class="axis"/>')
+        recent = summary.tail[-trace_points:]
+        coords = []
+        for offset, value in enumerate(recent):
+            x = trace_left + trace_w * offset / (trace_points - 1)
+            y = trace_top + trace_h * (1.0 - value)
+            coords.append(f'{x:.2f},{y:.2f}')
+        parts.append(f'<polyline fill="none" stroke="{color}" stroke-width="2" points="{" ".join(coords)}"/>')
+        parts.append(f'<text x="{trace_left}" y="{trace_top + trace_h + 20}" class="small">older</text>')
+        parts.append(f'<text x="{trace_left + trace_w}" y="{trace_top + trace_h + 20}" class="small" text-anchor="end">newer</text>')
+
+        metric_y = top + 482
+        metrics = [
+            f'class: {summary.classification}',
+            f'occupied bins: {summary.occupied_bins}/24',
+            f'mean x: {summary.mean_x:.3f}',
+            f'x range: {summary.min_x:.3f} .. {summary.max_x:.3f}',
+            f'peak bin: {summary.peak_bin_fraction * 100:.1f}%',
+        ]
+        for line_index, metric in enumerate(metrics):
+            parts.append(f'<text x="{left + 22}" y="{metric_y + line_index * 22}" class="metric">{metric}</text>')
+
+    parts.append('<text x="40" y="1322" class="small">The point of the sidecar is not that λ becomes useless. It is that sign alone does not tell you whether the orbit collapses into two spikes, spreads across a few thin bands, or fills most of the interval.</text>')
+    parts.append('</svg>')
+    out.write_text("\n".join(parts) + "\n")
+    export_png_from_svg(out, ASSETS / "2026-05-16-orbit-density-sidecar.png", size=2000, dpi=300)
+    return out
+
+
+def make_orbit_density_report() -> Path:
+    out = REPORTS / "orbit-density-sidecar.md"
+    summaries = [
+        (sequence, regime, note, summarize_orbit_density(sequence, a, b, burn_in=360, steps=1400, bins=24))
+        for sequence, regime, a, b, note in ORBIT_CASES
+    ]
+    lines = [
+        "# Orbit-density sidecar",
+        "",
+        "The Lyapunov exponent is still the right first summary here. But it is not the whole geometric story.",
+        "This sidecar asks a narrower question: once you pick one `(a, b)` point and one forcing word, how does the orbit actually spend its time across `[0, 1]`?",
+        "",
+        "## Why add this",
+        "",
+        "- sign tells you whether nearby trajectories contract or separate on average",
+        "- it does **not** tell you whether the tail collapses into two spikes, hops across a few thin bands, or fills most of the interval",
+        "- that missing occupancy story is exactly what the histograms and last-iterate traces add",
+        "",
+        "## Representative cases",
+        "",
+    ]
+    for sequence, regime, note, summary in summaries:
+        lines.extend([
+            f"### {sequence} · {regime}",
+            "",
+            f"- `(a, b) = ({summary.a:.3f}, {summary.b:.3f})`",
+            f"- `λ = {summary.exponent:+.4f}` -> `{summary.classification}`",
+            f"- occupied bins: `{summary.occupied_bins}/24`",
+            f"- `x` range: `{summary.min_x:.3f} .. {summary.max_x:.3f}`",
+            f"- peak bin share: `{summary.peak_bin_fraction * 100:.1f}%`",
+            f"- reading: {note}",
+            "",
+        ])
+    lines.extend([
+        "## Read across the six panels",
+        "",
+        "- the stable examples collapse into a tiny support set even though the two words do not land on exactly the same orbit values",
+        "- the near-zero examples are the useful middle layer: they are not broadly chaotic yet, but they already spread across many more occupied bins than the stable cases",
+        "- the chaotic examples fill most of the interval and push the last-iterate traces into a dense band rather than a small repeating cycle",
+        "",
+        "That is the reason to keep the orbit-density lane next to the Lyapunov sign fields. Sign is the right first cut, not the final geometric description.",
+        "",
+        "## Artifacts",
+        "",
+        "- `assets/2026-05-16-orbit-density-sidecar.svg`",
+        "- `assets/2026-05-16-orbit-density-sidecar.png`",
+        "- `notebooks/lyapunov-orbit-density.ipynb`",
+    ])
+    out.write_text("\n".join(lines) + "\n")
+    return out
+
+
 def main() -> int:
     ASSETS.mkdir(parents=True, exist_ok=True)
     REPORTS.mkdir(parents=True, exist_ok=True)
@@ -233,6 +426,8 @@ def main() -> int:
     outputs.append(ASSETS / "2026-05-14-short-word-scan.svg")
     render_short_word_scan_svg(scan_short_words(max_length=5, size=54, burn_in=180, steps=520), output=outputs[-1])
     outputs.append(make_short_word_report())
+    outputs.append(make_orbit_density_sidecar())
+    outputs.append(make_orbit_density_report())
     for path in outputs:
         print(f"WROTE {path.relative_to(ROOT)}")
     return 0
